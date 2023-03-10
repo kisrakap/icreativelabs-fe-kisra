@@ -1,9 +1,9 @@
 <template>
   <v-app>
-      <Header></Header>
-      <v-container fluid>
-        <v-row class="my-auto">
-          <v-col cols="12" class="ma-auto pa-auto">
+    <v-container fluid>
+      <v-row class="my-auto">
+        <v-col cols="12" class="ma-auto pa-auto">
+            <Header></Header>
             
             <!-- is section carousel disini -->
               <v-card
@@ -52,36 +52,38 @@
               </h2>
               <Lists :itemsProduct="productsData"> </Lists>
             </v-col>
-            <v-col cols="8" class="ma-0 mb-5" v-if="detailProduct">         
+            <v-col cols="8" class="ma-0 mb-5 d-flex align-content-start flex-wrap" v-if="detailProduct">         
               <v-row class="ma-auto ">
-                <v-card
-                v-id="detailProduct"
-                class="pa-4"
-                color="#385F73"
-                theme="dark"
-              >
-                  <v-card-title class="text-h5">
-                  </v-card-title>
-                    {{ detailProduct.subtitle }}
-                  <v-card-subtitle> 
-                    {{ detailProduct.desc }}
-                  </v-card-subtitle>
-                  <v-card-actions>
-                    <v-btn variant="text">
-                      Check Now
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-row>
-              <v-row class="mr-3" v-for="(prod, index) in detailProduct.product " :key="index">
-                <v-col cols="5" class="d-flex align-end" >
-                  <div> 
-                    <h3>{{prod.category}}</h3>
-                    <Lists :itemsProd="prod.item"></Lists>
-                  </div>
+                <v-col cols="10">
+                  <v-card
+                  
+                  v-if="detailProduct"
+                  class="pa-4 "
+                >
+                    <v-card-title class="text-h5">
+                    </v-card-title>
+                      {{ detailProduct.subtitle }}
+                    <v-card-subtitle> 
+                      {{ detailProduct.desc }}
+                    </v-card-subtitle>
+                    <v-card-actions>
+                      <v-btn variant="text">
+                        Check Now
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
                 </v-col>
               </v-row>
-              <v-row>
+        
+                <v-row class="d-flex align-content-start flex-wrap " >
+                  <v-col cols="5" class="" v-for="(prod, index) in detailProduct.product " :key="index" >
+                    <card cols="6">
+                      <h3>{{prod.category}}</h3>
+                      <Lists :itemsProd="prod.item"></Lists>
+                    </card>
+                  </v-col>
+                </v-row>
+                <v-row>
               </v-row>
             </v-col>
     
@@ -133,6 +135,9 @@ export default {
       }
     },
     created(){
+      if (!localStorage.getItem('access_token') ){
+        this.$router.push('/login')
+      }
       this.fetchdata() 
     },
     methods: {

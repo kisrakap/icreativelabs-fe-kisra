@@ -82,6 +82,9 @@ export default {
         confpassword : this.confirmPassword
       }
       this.$store.dispatch('register', payload)
+    },
+    tologin() {
+      this.$router.push('/login')
     }
   }
 }

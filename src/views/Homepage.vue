@@ -1,6 +1,7 @@
 <template>
       <v-container fluid>
-        <v-row class="my-auto w-100">
+        <v-row class="my-auto ma-0 w-100">
+          <Header></Header>
           <v-col cols="12" class="ma-0 pa-0">
             <!-- is section carousel disini -->
               <v-card
@@ -36,7 +37,7 @@
             <v-col cols="3" class="ma-0">
               <Lists :items-product="items"></Lists>
             </v-col>
-            <v-col cols="7" class="ma-0">
+            <v-col cols="8" class="ma-0">
               <!-- isi section searching disini -->
               <v-row class="ma-4">
                 <v-text-field
@@ -89,12 +90,14 @@
 <script>
 import Carousels from '@/components/Carousels.vue'
 import Lists from '@/components/Lists.vue'
-import router from '@/router'
+import Header from '@/components/Header.vue'
+
 export default {
     name : 'Homepage',
     components : {
       Carousels,
-      Lists
+      Lists,
+      Header
     },
     data () {
       return {
@@ -179,6 +182,9 @@ export default {
     },
     },
     created(){
+      if (!localStorage.getItem('access_token') ){
+        this.$router.push('/login')
+      }
       this.fetchdata() 
     },
     methods: {

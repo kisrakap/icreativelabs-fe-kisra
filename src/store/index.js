@@ -91,7 +91,8 @@ export default createStore({
        let data = resp
       context.commit('setData', data)
      } else {
-         alert('error login')
+         router.push('/login')
+
      }
    })
    .catch(err => console.error(err)) 

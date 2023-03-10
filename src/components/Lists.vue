@@ -1,37 +1,45 @@
 <template>
     <v-card
-      class="ma-4 w-100"
+      class="ma-2 w-100"
     >
-      <v-list density="compact">
-          <v-list-item v-if="itemsProduct"
+      <v-timeline density="compact">
+          <v-timeline-item v-if="itemsProduct"
           v-for="(item, i) in itemsProduct"
           :key="i"
           :value="item"
           active-color="primary"
-          class="text-left"
+          class="text-left border "
+          size="x-small"
+          
           @click="onItemClick(item)"
           >
           <template v-slot:prepend> 
+              <v-divider class="border-opacity-25"></v-divider>
         </template>
-        <v-list-item-title v-text="item.title"></v-list-item-title>
-        
-    </v-list-item>
-    <v-list-item v-if="itemsProd"
-        v-for="(item, i) in itemsProd"
-        :key="i"
-        :value="item"
-        active-color="primary"
-        class="text-left"
-        @click="gotopage(item)"
-        >
-        <template v-slot:prepend>  
-        </template>
-        <v-list-item-title> <router-link :to="item.url"></router-link>{{item.title}}</v-list-item-title>
-        <v-list-item-subtitle>{{item.desc}}
-        </v-list-item-subtitle>
-    </v-list-item>
+        <v-list-item-title v-text="item.title"></v-list-item-title>      
+        </v-timeline-item>
+    </v-timeline>
+    <v-list>
+        <v-list-item v-if="itemsProd"
+            v-for="(item, i) in itemsProd"
+            :key="i"
+            :value="item"
+            active-color="primary"
+            class="text-left"
+            @click="gotopage(item)"
+            >
+            <template v-slot:prepend>  
+            </template>
+            <v-list-item-title> <router-link class="text-decoration-none text-black" :to="item.url">{{item.title}}</router-link></v-list-item-title>
+            <v-divider class="border-opacity-25"></v-divider>
+            <v-list-item-subtitle style="min-height: 40px;">
+            
+                    {{item.desc}}
+            
+            </v-list-item-subtitle>
+        </v-list-item>
+    </v-list>
     
-</v-list>
     </v-card>
   </template>
 
@@ -56,8 +64,12 @@
     }),
     methods : {
         onItemClick(item){
-            let payload = item
-            this.$store.dispatch('getItemProduct', payload)
+            if (item.subtitle) {
+                let payload = item
+                this.$store.dispatch('getItemProduct', payload)
+            } else {
+            window.location.href = item.url
+            }
          }
         }, gotopage(item){
             window.location.href = item.url

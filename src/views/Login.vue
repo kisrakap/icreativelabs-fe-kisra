@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row justify="center">
+    <v-row justify="center" class="pa-15">
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12">
           <v-toolbar color="#143C4A" class="text-white">
@@ -25,6 +25,7 @@
                 block
                 dark
                 @click.prevent="login()"
+                :disabled="!email  || !password"
               >
                 Login
               </v-btn>
